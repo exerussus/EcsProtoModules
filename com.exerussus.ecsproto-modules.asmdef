@@ -1,0 +1,16 @@
+{
+    "name": "com.exerussus.ecsproto-modules",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b9e4029c2cdc84f7d82433cf8a1d0e69"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

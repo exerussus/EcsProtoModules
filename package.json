@@ -1,0 +1,21 @@
+{
+  "name": "com.exerussus.ecsproto-modules",
+  "version": "1.0.0",
+  "displayName": "Ecs Proto Modules",
+  "description": "Набор модулей для Ecs Proto для личного использования.",
+  "unity": "2020.3",
+  "dependencies": {},
+  "keywords": [
+    "ecsproto",
+    "modules",
+    "exerussus"
+  ],
+  "author": {
+    "name": "Exerussus",
+    "email": "solovyov.production@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exerussus/EcsProtoModules.git"
+  }
+}
