@@ -7,13 +7,15 @@ namespace Exerussus.EcsProtoModules.Injector
 {
     public class InjectModule : IProtoModule
     {
-        public InjectModule(params object[] references)
+        public InjectModule(bool checkInterface = false, params object[] references)
         {
+            _checkInterface = checkInterface;
             _diContainer = new DIContainer().Add(references);
         }
         
-        public InjectModule(params UnityEngine.Object[] references)
+        public InjectModule(bool checkInterface = false, params UnityEngine.Object[] references)
         {
+            _checkInterface = checkInterface;
             var objects = new object[references.Length];
             for (var index = 0; index < references.Length; index++)
             {
@@ -24,11 +26,12 @@ namespace Exerussus.EcsProtoModules.Injector
         }
 
         private readonly DIContainer _diContainer;
+        private readonly bool _checkInterface;
         private static readonly Type DiAttrType = typeof(EcsInjectAttribute);
         
         public void Init(IProtoSystems systems)
         {
-            systems.AddSystem(new InjectSystem(_diContainer));
+            systems.AddSystem(new InjectSystem(_diContainer, _checkInterface));
         }
 
         public IProtoAspect[] Aspects() => null;
@@ -37,17 +40,19 @@ namespace Exerussus.EcsProtoModules.Injector
 
         sealed class InjectSystem : IProtoInitSystem
         {
-            public InjectSystem(DIContainer diContainer)
+            public InjectSystem(DIContainer diContainer, bool checkInterface)
             {
+                _checkInterface = checkInterface;
                 _diContainer = diContainer;
             }
 
+            private readonly bool _checkInterface;
             private readonly DIContainer _diContainer;
 
             public void Init(IProtoSystems systems)
             {
-                foreach (var service in systems.Services().Values) if (service is IEcsInjectable) TryInjectFields(service);
-                foreach (var system in systems.Systems()) if (system is IEcsInjectable) TryInjectFields(system);
+                foreach (var service in systems.Services().Values) if (_checkInterface || service is IEcsInjectable) TryInjectFields(service);
+                foreach (var system in systems.Systems()) if (_checkInterface || system is IEcsInjectable) TryInjectFields(system);
             }
 
             public void TryInjectFields(object target)
