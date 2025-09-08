@@ -7,12 +7,12 @@ namespace Exerussus.EcsProtoModules.Injector
 {
     public class InjectModule : IProtoModule
     {
-        public InjectModule(object[] references)
+        public InjectModule(params object[] references)
         {
             _diContainer = new DIContainer().Add(references);
         }
         
-        public InjectModule(UnityEngine.Object[] references)
+        public InjectModule(params UnityEngine.Object[] references)
         {
             var objects = new object[references.Length];
             for (var index = 0; index < references.Length; index++)
