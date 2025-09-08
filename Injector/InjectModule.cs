@@ -51,8 +51,8 @@ namespace Exerussus.EcsProtoModules.Injector
 
             public void Init(IProtoSystems systems)
             {
-                foreach (var service in systems.Services().Values) if (_checkInterface || service is IEcsInjectable) TryInjectFields(service);
-                foreach (var system in systems.Systems()) if (_checkInterface || system is IEcsInjectable) TryInjectFields(system);
+                foreach (var service in systems.Services().Values) if (!_checkInterface || service is IEcsInjectable) TryInjectFields(service);
+                foreach (var system in systems.Systems()) if (!_checkInterface || system is IEcsInjectable) TryInjectFields(system);
             }
 
             public void TryInjectFields(object target)
